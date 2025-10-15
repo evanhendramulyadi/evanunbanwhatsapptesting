@@ -16,7 +16,45 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;flex-direction:column;}
+
+/* Navbar */
+.navbar{
+  position:fixed;
+  top:14px;left:16px;
+  display:flex;align-items:center;gap:10px;
+  z-index:100;
+}
+.hamburger{
+  width:26px;height:20px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  cursor:pointer;
+}
+.hamburger span{
+  display:block;width:100%;height:3px;background:var(--accent);border-radius:2px;transition:0.3s;
+}
+.brand-top{
+  font-weight:800;font-size:15px;letter-spacing:1px;color:var(--accent);
+}
+
+/* Menu dropdown */
+.menu{
+  position:fixed;
+  top:50px;left:16px;
+  background:rgba(7,18,38,0.95);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:10px;
+  padding:10px;
+  display:none;
+  flex-direction:column;
+  gap:8px;
+  width:150px;
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+.menu a{
+  color:#e6eef6;text-decoration:none;font-size:14px;padding:8px 10px;border-radius:8px;transition:0.25s;
+}
+.menu a:hover{background:rgba(255,255,255,0.05);color:var(--accent-2);}
 
 /* Splash / password */
 .splash{
@@ -69,16 +107,9 @@ html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe U
   box-shadow:0 12px 40px rgba(2,6,23,.6);
   position:relative;
   overflow:hidden;
+  margin-top:80px;
 }
-header.app-header{
-  position:absolute;
-  top:12px;left:12px;
-  font-weight:800;
-  font-size:14px;
-  letter-spacing:1px;
-  color:var(--accent);
-}
-main.card{margin-top:8px;padding-top:36px;}
+main.card{margin-top:8px;padding-top:10px;}
 h1.title{text-align:center;margin:0 0 8px;font-size:20px;}
 p.lead{text-align:center;margin:0 0 16px;color:var(--muted);font-size:14px;}
 .form{display:grid;gap:10px;}
@@ -115,20 +146,29 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
 }
 @media(max-width:520px){
   .input-row input{width:65%;}
-  .brand{font-size:18px;}
-  header.app-header{left:10px;top:8px;font-size:13px;padding:6px 8px;}
-  main.card{padding-top:46px;}
 }
 </style>
 </head>
 <body>
 <div class="app">
 
+<!-- Navbar muncul setelah login -->
+<div id="navbar" class="navbar" style="display:none;">
+  <div class="hamburger" id="menuBtn">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="brand-top">EVAN UNBAN WHATSAPP</div>
+</div>
+
+<div id="menu" class="menu">
+  <a href="#" id="homeLink">🏠 Home</a>
+  <a href="#" id="tipsLink">💡 Tips</a>
+</div>
+
 <!-- Splash / password -->
 <div id="splash" class="splash" aria-hidden="false">
   <div class="brand">EVAN UNBAN WHATSAPP</div>
   <p>Masukkan password untuk lanjut menggunakan website ini.</p>
-
   <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
     <div class="input-row">
       <input id="passwordInput" type="password" placeholder="Masukkan password" aria-label="password">
@@ -136,29 +176,20 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
     </div>
     <div id="pwMsg" style="color:#f87171;font-size:13px;height:18px;"></div>
   </div>
-
-  <div class="buy-access">
-    Untuk beli akses password → DM TikTok: @evanunbanwhatsapp
-  </div>
-
-  <div class="footer-box">
-    © 2025 Evan Developer. All rights reserved.
-  </div>
+  <div class="buy-access">Untuk beli akses password → DM TikTok: @evanunbanwhatsapp</div>
+  <div class="footer-box">© 2025 Evan Developer. All rights reserved.</div>
 </div>
 
 <!-- Main App -->
-<div id="appMain" class="container" style="display:none" aria-hidden="true">
-  <header class="app-header">EVAN UNBAN WHATSAPP</header>
+<div id="homePage" class="container" style="display:none;">
   <main class="card">
     <h1 class="title">Form Unban WhatsApp</h1>
     <p class="lead">Masukkan nomor WhatsApp Anda (format internasional), lalu pilih opsi banding.</p>
-
     <form id="unbanForm" class="form" onsubmit="return false;">
       <div>
         <label for="phone">Nomor WhatsApp (format internasional, contoh: +6281234567890)</label>
         <input id="phone" type="text" inputmode="tel" placeholder="+6281234567890" autocomplete="tel" required>
       </div>
-
       <div>
         <label for="bandOption">Pilih Opsi Banding</label>
         <select id="bandOption">
@@ -166,25 +197,40 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
           <option value="sementara">Sementara</option>
         </select>
       </div>
-
       <div class="row" style="margin-top:6px">
         <div class="col"><button id="sendBtn" class="btn" type="button">Kirim Banding</button></div>
         <div style="width:120px"><button id="clearBtn" class="btn ghost" type="button">Bersihkan</button></div>
       </div>
-
       <div id="feedback" class="result"></div>
       <div class="note">
-  Setelah klik <strong>Kirim Banding</strong>, Anda akan otomatis diarahkan ke Gmail. 
-  Cukup tekan <strong>Send</strong> untuk mengirim.  
-  <br><br>
-  ⚠️ <em>Catatan:</em> Jika nomor WhatsApp yang Anda isi <strong>tidak sedang diblokir atau tidak terkena banned</strong>, 
-  maka pengajuan banding ini <strong>tidak akan berpengaruh apa pun</strong> meskipun email berhasil terkirim ke pihak WhatsApp.
-</div>
+        Setelah klik <strong>Kirim Banding</strong>, Anda akan otomatis diarahkan ke Gmail. 
+        Cukup tekan <strong>Send</strong> untuk mengirim.  
+        <br><br>
+        ⚠️ <em>Catatan:</em> Jika nomor WhatsApp yang Anda isi <strong>tidak sedang diblokir atau tidak terkena banned</strong>, 
+        maka pengajuan banding ini <strong>tidak akan berpengaruh apa pun</strong> meskipun email berhasil terkirim ke pihak WhatsApp.
+        <br><br>
+        🕒 <strong>Perlu diingat:</strong> Penggunaan website ini hanya bertujuan untuk <strong>membantu mempercepat proses unban WhatsApp dan meningkatkan peluang keberhasilan</strong>, 
+        <strong>bukan untuk menjamin 100% keberhasilan atau hasil yang instan</strong>. Keputusan akhir sepenuhnya berada di tangan <strong>pihak WhatsApp</strong>.
+      </div>
     </form>
+    <div class="footer-box">© 2025 Evan Developer. All rights reserved.</div>
+  </main>
+</div>
 
-    <div class="footer-box">
-      © 2025 Evan Developer. All rights reserved.
-    </div>
+<!-- Tips Page -->
+<div id="tipsPage" class="container" style="display:none;">
+  <main class="card">
+    <h1 class="title">Tips Agar Tidak Terkena Banned Lagi</h1>
+    <p class="lead">Beberapa langkah aman agar akun WhatsApp yang sudah di-unban tetap aman digunakan:</p>
+    <ul style="color:#cbd5e1;font-size:14px;line-height:1.6;">
+      <li>Gunakan hanya aplikasi WhatsApp resmi dari Google Play Store atau App Store.</li>
+      <li>Hindari menggunakan aplikasi modifikasi seperti GBWhatsApp, FMWhatsApp, dan sejenisnya.</li>
+      <li>Jangan kirim pesan massal berulang-ulang ke banyak orang yang tidak menyimpan nomor Anda.</li>
+      <li>Jangan sebarkan link mencurigakan atau konten spam.</li>
+      <li>Aktifkan verifikasi dua langkah untuk keamanan tambahan.</li>
+      <li>Gunakan WhatsApp dengan wajar dan patuhi Ketentuan Layanan WhatsApp.</li>
+    </ul>
+    <div class="footer-box">© 2025 Evan Developer. All rights reserved.</div>
   </main>
 </div>
 
@@ -193,29 +239,45 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
 <script>
 const TRUE_PASSWORD='UNBANWA2025';
 const splash=document.getElementById('splash');
-const appMain=document.getElementById('appMain');
+const navbar=document.getElementById('navbar');
+const homePage=document.getElementById('homePage');
+const tipsPage=document.getElementById('tipsPage');
 const pwInput=document.getElementById('passwordInput');
 const pwBtn=document.getElementById('pwBtn');
 const pwMsg=document.getElementById('pwMsg');
+const menuBtn=document.getElementById('menuBtn');
+const menu=document.getElementById('menu');
+const homeLink=document.getElementById('homeLink');
+const tipsLink=document.getElementById('tipsLink');
 
-function showApp(){
-  splash.style.display='none';
-  appMain.style.display='block';
+function showHome(){
+  homePage.style.display='block';
+  tipsPage.style.display='none';
+  menu.style.display='none';
+}
+function showTips(){
+  homePage.style.display='none';
+  tipsPage.style.display='block';
+  menu.style.display='none';
 }
 
 pwBtn.addEventListener('click',()=>{
   const v=pwInput.value.trim();
   if(v===TRUE_PASSWORD){
-    showApp();
-    pwInput.value='';
+    splash.style.display='none';
+    navbar.style.display='flex';
+    showHome();
   }else{
     pwMsg.textContent='Password salah — coba lagi.';
   }
 });
-pwInput.addEventListener('keydown',e=>{
-  if(e.key==='Enter')pwBtn.click();
-});
+pwInput.addEventListener('keydown',e=>{if(e.key==='Enter')pwBtn.click();});
 
+menuBtn.addEventListener('click',()=>menu.style.display=menu.style.display==='flex'?'none':'flex');
+homeLink.addEventListener('click',showHome);
+tipsLink.addEventListener('click',showTips);
+
+// Form Unban
 const phoneEl=document.getElementById('phone');
 const bandEl=document.getElementById('bandOption');
 const sendBtn=document.getElementById('sendBtn');
@@ -231,26 +293,22 @@ function normalizePhone(raw){
   return null;
 }
 
-sendBtn.addEventListener('click', () => {
-  const num = normalizePhone(phoneEl.value.trim());
-  if (!num) {
-    feedback.style.display = 'block';
-    feedback.style.color = '#f87171';
-    feedback.textContent = 'Nomor WhatsApp tidak valid.';
+sendBtn.addEventListener('click',()=>{
+  const num=normalizePhone(phoneEl.value.trim());
+  if(!num){
+    feedback.style.display='block';
+    feedback.style.color='#f87171';
+    feedback.textContent='Nomor WhatsApp tidak valid.';
     return;
   }
-
-  feedback.style.display = 'block';
-  feedback.style.color = '#0ef';
-  feedback.textContent = 'Menyiapkan email banding...';
-
-  const band = bandEl.value;
-  const subject = `Permohonan Banding Pemblokiran Akun WhatsApp (${num})`;
-
-  let bodyText = '';
-
-  if (band === 'permanen') {
-    bodyText = `Halo Tim WhatsApp,
+  feedback.style.display='block';
+  feedback.style.color='#0ef';
+  feedback.textContent='Menyiapkan email banding...';
+  const band=bandEl.value;
+  const subject=`Permohonan Banding Pemblokiran Akun WhatsApp (${num})`;
+  let bodyText='';
+  if(band==='permanen'){
+    bodyText=`Halo Tim WhatsApp,
 
 Saya ingin mengajukan banding atas pemblokiran permanen terhadap akun WhatsApp saya dengan nomor ${num}. Saya yakin bahwa pemblokiran ini terjadi karena kesalahpahaman atau sistem yang salah mendeteksi aktivitas akun saya.
 
@@ -261,8 +319,8 @@ Terima kasih atas perhatian dan kerja samanya. Saya sangat berharap akun saya bi
 Hormat saya,
 User WhatsApp
 Nomor WhatsApp: ${num}`;
-  } else {
-    bodyText = `Halo Tim WhatsApp,
+  }else{
+    bodyText=`Halo Tim WhatsApp,
 
 Saya ingin mengajukan permohonan peninjauan atas pemblokiran sementara pada akun WhatsApp saya dengan nomor ${num}. Saya baru menyadari bahwa akun saya tidak dapat digunakan untuk sementara waktu, dan saya mohon maaf jika ada aktivitas yang dianggap melanggar kebijakan WhatsApp.
 
@@ -275,25 +333,21 @@ User WhatsApp
 Nomor WhatsApp: ${num}`;
   }
 
-  const mailto = `mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
-
-  // Delay 1 detik sebelum diarahkan ke Gmail
-  setTimeout(() => {
-    window.location.href = mailto;
-
-    // Reset form setelah diarahkan
-    setTimeout(() => {
-      phoneEl.value = '';
-      bandEl.value = 'permanen';
-      feedback.style.display = 'none';
-    }, 2000); // beri jeda 2 detik agar sempat balik ke browser
-  }, 1000);
+  const mailto=`mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+  setTimeout(()=>{
+    window.location.href=mailto;
+    setTimeout(()=>{
+      phoneEl.value='';
+      bandEl.value='permanen';
+      feedback.style.display='none';
+    },2000);
+  },1000);
 });
 
-clearBtn.addEventListener('click', () => {
-  phoneEl.value = '';
-  bandEl.value = 'permanen';
-  feedback.style.display = 'none';
+clearBtn.addEventListener('click',()=>{
+  phoneEl.value='';
+  bandEl.value='permanen';
+  feedback.style.display='none';
 });
 </script>
 </body>

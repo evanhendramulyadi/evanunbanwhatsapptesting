@@ -113,18 +113,6 @@ main.card{margin-top:8px;padding-top:10px;}
 h1.title{text-align:center;margin:0 0 8px;font-size:20px;}
 p.lead{text-align:center;margin:0 0 16px;color:var(--muted);font-size:14px;}
 .form{display:grid;gap:10px;}
-label{font-size:13px;color:var(--muted);margin-bottom:6px;}
-input[type="text"],select{
-  width:100%;padding:12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,.04);
-  background:transparent;
-  color:inherit;
-  outline:none;
-  font-size:15px;
-  transition:0.3s all;
-}
-input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 8px rgba(6,182,212,.4);}
 .row{display:flex;gap:10px;}
 .col{flex:1;}
 .note{font-size:13px;color:var(--muted);text-align:center;margin-top:12px;}
@@ -152,7 +140,7 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
 <body>
 <div class="app">
 
-<!-- Navbar muncul setelah login -->
+<!-- Navbar setelah login -->
 <div id="navbar" class="navbar" style="display:none;">
   <div class="hamburger" id="menuBtn">
     <span></span><span></span><span></span>
@@ -160,18 +148,20 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
   <div class="brand-top">EVAN UNBAN WHATSAPP</div>
 </div>
 
+<!-- Menu -->
 <div id="menu" class="menu">
+  <a href="#" id="homeMenu">🏠 Home</a>
   <a href="#" id="homeLink">🛠️ Unban Tool</a>
   <a href="#" id="tipsLink">🛡️ Anti-Ban Tips</a>
 </div>
 
-<!-- Splash / password -->
-<div id="splash" class="splash" aria-hidden="false">
+<!-- Splash -->
+<div id="splash" class="splash">
   <div class="brand">EVAN UNBAN WHATSAPP</div>
   <p>Masukkan password untuk lanjut menggunakan website ini.</p>
   <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
     <div class="input-row">
-      <input id="passwordInput" type="password" placeholder="Masukkan password" aria-label="password">
+      <input id="passwordInput" type="password" placeholder="Masukkan password">
       <button id="pwBtn" class="btn">Masuk</button>
     </div>
     <div id="pwMsg" style="color:#f87171;font-size:13px;height:18px;"></div>
@@ -180,124 +170,133 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
   <div class="footer-box">© 2025 Evan Developer. All rights reserved.</div>
 </div>
 
-<!-- Main App -->
-<div id="homePage" class="container" style="display:none;">
+<!-- ✅ Halaman Home Baru -->
+<div id="homeMain" class="container" style="display:none;">
   <main class="card">
-    <h1 class="title">Form Unban WhatsApp</h1>
-    <p class="lead">Masukkan nama lengkap dan nomor WhatsApp Anda (format internasional), lalu pilih opsi banding.</p>
-    <form id="unbanForm" class="form" onsubmit="return false;">
-      <div>
-        <label for="name">Nama Lengkap Anda</label>
-        <input id="name" type="text" placeholder="Masukkan nama lengkap Anda di sini" required>
-      </div>
-      <div>
-        <label for="phone">Nomor WhatsApp (format internasional, contoh: +6281234567890)</label>
-        <input id="phone" type="text" inputmode="tel" placeholder="+6281234567890" autocomplete="tel" required>
-      </div>
-      <div>
-        <label for="bandOption">Pilih Opsi Banding</label>
-        <select id="bandOption">
-          <option value="permanen">Permanen</option>
-          <option value="sementara">Sementara</option>
-        </select>
-      </div>
-      <div class="row" style="margin-top:6px">
-        <div class="col"><button id="sendBtn" class="btn" type="button">Kirim Banding</button></div>
-        <div style="width:120px"><button id="clearBtn" class="btn ghost" type="button">Bersihkan</button></div>
-      </div>
-      <div id="feedback" class="result"></div>
-      <div class="note">
-        Setelah klik <strong>Kirim Banding</strong>, Anda akan otomatis diarahkan ke Gmail. 
-        Cukup tekan <strong>Send</strong> untuk mengirim.  
-        <br><br>
-        ⚠️ <em>Catatan:</em> Jika nomor WhatsApp yang Anda isi <strong>tidak sedang diblokir atau tidak terkena banned</strong>, 
-        maka pengajuan banding ini <strong>tidak akan berpengaruh apa pun</strong> meskipun email berhasil terkirim ke pihak WhatsApp.
-        <br><br>
-        🕒 <strong>Perlu diingat:</strong> Penggunaan website ini hanya bertujuan untuk <strong>membantu mempercepat proses unban WhatsApp dan meningkatkan peluang keberhasilan</strong>, 
-        <strong>bukan untuk menjamin 100% keberhasilan atau hasil yang instan</strong>. Keputusan akhir sepenuhnya berada di tangan <strong>pihak WhatsApp</strong>.
-      </div>
-    </form>
+    <h1 class="title">Selamat datang di website Evan Unban WhatsApp</h1>
+    <p class="lead">Silahkan pilih fitur yang tersedia:</p>
+
+    <div style="text-align:center;display:flex;flex-direction:column;gap:14px;">
+      <button class="btn" onclick="showHomeTool()">Buka Unban Tool</button>
+      <button class="btn" onclick="showTips()">Buka Anti-Ban Tips</button>
+    </div>
+
+    <p class="lead" style="margin-top:24px;">Media Sosial Evan Dev:</p>
+
+    <div style="text-align:center;display:flex;flex-direction:column;gap:10px;">
+      <a class="btn" href="https://www.tiktok.com/@evanhendra?_t=ZS-90y7kHzdNsV&_r=1" target="_blank">TikTok Developer</a>
+      <a class="btn" href="https://www.instagram.com/evanhendraa?igsh=czY4ZDM0eTB1bjNu" target="_blank">Instagram Developer</a>
+    </div>
+
     <div class="footer-box">© 2025 Evan Developer. All rights reserved.</div>
   </main>
 </div>
 
-<!-- Tips Page -->
-<div id="tipsPage" class="container" style="display:none;">
+<!-- 🛠️ Unban Page -->
+<div id="homePage" class="container" style="display:none;">
   <main class="card">
-    <h1 class="title">🛡️ Tips Aman agar WhatsApp Terhindar dari Banned</h1>
-<p class="lead">
-  Berikut beberapa tips penting agar akun WhatsApp Anda tidak mudah terkena banned dan tetap aman digunakan setiap hari:
-</p>
+    <h1 class="title">Form Unban WhatsApp</h1>
+    <p class="lead">Masukkan nama lengkap dan nomor WhatsApp (format internasional).</p>
 
-<ul style="color:#cbd5e1;font-size:14px;line-height:1.6;">
-  <li>Gunakan <strong>aplikasi WhatsApp resmi</strong> yang diunduh dari <em>Google Play Store</em> atau <em>App Store</em>.</li>
-  <li>Hindari menggunakan <strong>aplikasi modifikasi</strong> seperti GBWhatsApp, FMWhatsApp, YoWhatsApp, dan sejenisnya.</li>
-  <li>Jangan kirim <strong>pesan massal</strong> atau <strong>broadcast</strong> ke banyak orang yang tidak menyimpan nomor Anda.</li>
-  <li>Hindari mengirim <strong>link mencurigakan</strong>, konten spam, atau pesan berulang yang bisa dianggap mengganggu.</li>
-  <li>Aktifkan fitur <strong>Verifikasi Dua Langkah</strong> untuk meningkatkan keamanan akun Anda.</li>
-  <li>Gunakan WhatsApp secara <strong>wajar dan sesuai ketentuan</strong> agar terhindar dari sistem deteksi pelanggaran.</li>
-</ul>
+    <form id="unbanForm" class="form" onsubmit="return false;">
+      <div>
+        <label for="name">Nama Lengkap Anda</label>
+        <input id="name" type="text" required>
+      </div>
+      <div>
+        <label for="phone">Nomor WhatsApp</label>
+        <input id="phone" type="text" inputmode="tel" required placeholder="+6281234567890">
+      </div>
 
-<p style="color:#94a3b8;font-size:13px;margin-top:16px;">
-  Dengan mengikuti tips di atas, peluang akun Anda terkena banned akan jauh lebih kecil. Gunakan WhatsApp dengan bijak dan tetap aman.
-</p>
+      <div class="row" style="margin-top:6px">
+        <div class="col"><button id="sendBtn" class="btn" type="button">Kirim Banding</button></div>
+        <div style="width:120px"><button id="clearBtn" class="btn ghost" type="button">Bersihkan</button></div>
+      </div>
 
-<div class="footer-box">© 2025 Evan Developer. All rights reserved.</div>
-</main>
+      <div id="feedback" class="result"></div>
+
+      <button type="button" class="btn ghost" onclick="goHome()">← Kembali ke Home</button>
+
+      <div class="note">Gunakan fitur ini dengan bijak. Keputusan tetap di tangan WhatsApp.</div>
+    </form>
+
+    <div class="footer-box">© 2025 Evan Developer. All rights reserved.</div>
+  </main>
 </div>
 
+<!-- 🛡️ Tips Page -->
+<div id="tipsPage" class="container" style="display:none;">
+  <main class="card">
+    <h1 class="title">🛡️ Tips Aman</h1>
+    <p class="lead">Agar akun WhatsApp Anda tetap aman:</p>
+
+    <ul style="color:#cbd5e1;font-size:14px;line-height:1.6;">
+      <li>Gunakan WhatsApp resmi.</li>
+      <li>Jangan spam.</li>
+      <li>Aktifkan verifikasi dua langkah.</li>
+    </ul>
+
+    <button type="button" class="btn ghost" onclick="goHome()">← Kembali ke Home</button>
+
+    <div class="footer-box">© 2025 Evan Developer. All rights reserved.</div>
+  </main>
+</div>
 
 </div>
 
 <script>
 const TRUE_PASSWORD='UNBANWA2025';
+
 const splash=document.getElementById('splash');
 const navbar=document.getElementById('navbar');
+const homeMain=document.getElementById('homeMain');
 const homePage=document.getElementById('homePage');
 const tipsPage=document.getElementById('tipsPage');
+const menu=document.getElementById('menu');
 const pwInput=document.getElementById('passwordInput');
 const pwBtn=document.getElementById('pwBtn');
 const pwMsg=document.getElementById('pwMsg');
-const menuBtn=document.getElementById('menuBtn');
-const menu=document.getElementById('menu');
-const homeLink=document.getElementById('homeLink');
-const tipsLink=document.getElementById('tipsLink');
 
-function showHome(){
-  homePage.style.display='block';
+// Menu buttons
+document.getElementById('menuBtn').addEventListener('click',()=>menu.style.display=menu.style.display==='flex'?'none':'flex');
+document.getElementById('homeMenu').addEventListener('click',showMainHome);
+document.getElementById('homeLink').addEventListener('click',showHomeTool);
+document.getElementById('tipsLink').addEventListener('click',showTips);
+
+function hideAll(){
+  homeMain.style.display='none';
+  homePage.style.display='none';
   tipsPage.style.display='none';
   menu.style.display='none';
 }
+
+function showMainHome(){
+  hideAll();
+  homeMain.style.display='block';
+}
+function showHomeTool(){
+  hideAll();
+  homePage.style.display='block';
+}
 function showTips(){
-  homePage.style.display='none';
+  hideAll();
   tipsPage.style.display='block';
-  menu.style.display='none';
+}
+function goHome(){
+  showMainHome();
 }
 
+// Login
 pwBtn.addEventListener('click',()=>{
-  const v=pwInput.value.trim();
-  if(v===TRUE_PASSWORD){
+  if(pwInput.value.trim()===TRUE_PASSWORD){
     splash.style.display='none';
     navbar.style.display='flex';
-    showHome();
-  }else{
-    pwMsg.textContent='Password salah — coba lagi.';
-  }
+    showMainHome();
+  }else pwMsg.textContent='Password salah!';
 });
-pwInput.addEventListener('keydown',e=>{if(e.key==='Enter')pwBtn.click();});
+pwInput.addEventListener('keydown',e=>{if(e.key==='Enter')pwBtn.click()});
 
-menuBtn.addEventListener('click',()=>menu.style.display=menu.style.display==='flex'?'none':'flex');
-homeLink.addEventListener('click',showHome);
-tipsLink.addEventListener('click',showTips);
-
-// Form Unban
-const nameEl=document.getElementById('name');
-const phoneEl=document.getElementById('phone');
-const bandEl=document.getElementById('bandOption');
-const sendBtn=document.getElementById('sendBtn');
-const feedback=document.getElementById('feedback');
-const clearBtn=document.getElementById('clearBtn');
-
+// ✅ Unban Script tetap sama
 function normalizePhone(raw){
   if(!raw)return null;
   let s=raw.replace(/[\s()-]/g,'');
@@ -306,72 +305,24 @@ function normalizePhone(raw){
   if(/^\+[0-9]+$/.test(s))return s;
   return null;
 }
-
-sendBtn.addEventListener('click',()=>{
-  const nama=nameEl.value.trim();
-  const num=normalizePhone(phoneEl.value.trim());
-  if(!nama){
+document.getElementById('sendBtn').addEventListener('click',()=>{
+  const nama=name.value.trim();
+  const num=normalizePhone(phone.value.trim());
+  const feedback=document.getElementById('feedback');
+  if(!nama||!num){
     feedback.style.display='block';
     feedback.style.color='#f87171';
-    feedback.textContent='Nama tidak boleh kosong.';
-    return;
-  }
-  if(!num){
-    feedback.style.display='block';
-    feedback.style.color='#f87171';
-    feedback.textContent='Nomor WhatsApp tidak valid.';
+    feedback.textContent='Data tidak valid.';
     return;
   }
   feedback.style.display='block';
   feedback.style.color='#0ef';
-  feedback.textContent='Menyiapkan email banding...';
-  const band=bandEl.value;
-  const subject=`Permohonan Banding Pemblokiran Akun WhatsApp (${num})`;
-  let bodyText='';
-  if(band==='permanen'){
-    bodyText=`Halo Tim WhatsApp,
+  feedback.textContent='Menyiapkan email...';
 
-Saya ingin mengajukan banding atas pemblokiran permanen terhadap akun WhatsApp saya dengan nomor ${num}. Saya yakin bahwa pemblokiran ini terjadi karena kesalahpahaman atau sistem yang salah mendeteksi aktivitas akun saya.
-
-Saya menggunakan akun ini hanya untuk berkomunikasi dengan keluarga, teman, dan keperluan pribadi/bisnis kecil. Saya selalu berusaha mengikuti Ketentuan Layanan dan Kebijakan WhatsApp. Mohon untuk meninjau kembali kasus saya dan mempertimbangkan untuk mengaktifkan kembali akun tersebut.
-
-Terima kasih atas perhatian dan kerja samanya. Saya sangat berharap akun saya bisa dipulihkan.
-
-Hormat saya,
-${nama}
-Nomor WhatsApp: ${num}`;
-  }else{
-    bodyText=`Halo Tim WhatsApp,
-
-Saya ingin mengajukan permohonan peninjauan atas pemblokiran sementara pada akun WhatsApp saya dengan nomor ${num}. Saya baru menyadari bahwa akun saya tidak dapat digunakan untuk sementara waktu, dan saya mohon maaf jika ada aktivitas yang dianggap melanggar kebijakan WhatsApp.
-
-Saya berkomitmen untuk mematuhi seluruh Ketentuan Layanan dan tidak akan menggunakan aplikasi modifikasi atau fitur yang tidak resmi di masa mendatang. Mohon kiranya tim dapat meninjau kembali dan memulihkan akun saya agar bisa digunakan seperti semula.
-
-Terima kasih atas perhatian dan pengertiannya.
-
-Hormat saya,
-${nama}
-Nomor WhatsApp: ${num}`;
-  }
-
-  const mailto=`mailto:support@support.whatsapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
-  setTimeout(()=>{
-    window.location.href=mailto;
-    setTimeout(()=>{
-      nameEl.value='';
-      phoneEl.value='';
-      bandEl.value='permanen';
-      feedback.style.display='none';
-    },2000);
-  },1000);
+  const mailto=`mailto:support@support.whatsapp.com?subject=${encodeURIComponent('Banding '+num)}&body=${encodeURIComponent(`${nama} - ${num}`)}`;
+  setTimeout(()=>window.location.href=mailto,1000);
 });
-
-clearBtn.addEventListener('click',()=>{
-  nameEl.value='';
-  phoneEl.value='';
-  bandEl.value='permanen';
-  feedback.style.display='none';
-});
+document.getElementById('clearBtn').addEventListener('click',()=>{name.value='';phone.value='';});
 </script>
 </body>
 </html>

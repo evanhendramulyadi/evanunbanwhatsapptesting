@@ -41,20 +41,33 @@ html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe U
 .menu{
   position:fixed;
   top:50px;left:16px;
-  background:rgba(7,18,38,0.95);
+  background:#071a31; /* ✅ NO TRANSPARAN */
   border:1px solid rgba(255,255,255,0.06);
   border-radius:10px;
   padding:10px;
   display:none;
   flex-direction:column;
   gap:8px;
-  width:150px;
-  box-shadow:0 8px 30px rgba(0,0,0,.4);
+  width:180px; /* ✅ Lebih proporsional */
+  box-shadow:0 8px 30px rgba(0,0,0,.6);
+  z-index:9999; /* ✅ Selalu di atas */
+  pointer-events:auto; /* ✅ Bisa dipencet */
 }
+
 .menu a{
-  color:#e6eef6;text-decoration:none;font-size:14px;padding:8px 10px;border-radius:8px;transition:0.25s;
+  color:#e6eef6;
+  text-decoration:none;
+  font-size:14px;
+  padding:10px;
+  border-radius:8px;
+  transition:0.25s;
 }
-.menu a:hover{background:rgba(255,255,255,0.05);color:var(--accent-2);}
+
+.menu a:hover{
+  background:rgba(255,255,255,0.05);
+  color:var(--accent-2);
+}
+
 
 /* ACTIVE MENU STATE */
 .nav-link.active{
@@ -497,6 +510,7 @@ clearBtn.addEventListener('click',()=>{
 </script>
 </body>
 </html>
+
 
 
 

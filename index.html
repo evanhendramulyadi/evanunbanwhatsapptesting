@@ -160,10 +160,13 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
 .nav-link {
   padding: 12px 16px !important;
   white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
 }
 
 .nav-link.active {
-  padding: 14px 16px !important;
+  font-weight: 700 !important;
+  background: linear-gradient(90deg, #00d1d1, #06c8a3);
+  color: #000 !important;
 }
 </style>
 </head>
@@ -477,4 +480,5 @@ clearBtn.addEventListener('click',()=>{
 </script>
 </body>
 </html>
+
 

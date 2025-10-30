@@ -166,6 +166,38 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
   <a href="#" id="tipsLink">🛡️ Anti-Ban Tips</a>
 </div>
 
+  <script>
+  function setActiveMenu(menuId) {
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+    });
+    const activeLink = document.getElementById(menuId);
+    if (activeLink) activeLink.classList.add('active');
+  }
+
+  // Panggil fungsi ini setiap kali halaman diganti
+  function showHome() {
+    document.getElementById('homeMainPage').style.display = 'block';
+    document.getElementById('unbanPage').style.display = 'none';
+    document.getElementById('tipsPage').style.display = 'none';
+    setActiveMenu('navHome');
+  }
+
+  function showUnban() {
+    document.getElementById('homeMainPage').style.display = 'none';
+    document.getElementById('unbanPage').style.display = 'block';
+    document.getElementById('tipsPage').style.display = 'none';
+    setActiveMenu('navUnban');
+  }
+
+  function showTips() {
+    document.getElementById('homeMainPage').style.display = 'none';
+    document.getElementById('unbanPage').style.display = 'none';
+    document.getElementById('tipsPage').style.display = 'block';
+    setActiveMenu('navTips');
+  }
+</script>
+
 <!-- Splash / password -->
 <div id="splash" class="splash" aria-hidden="false">
   <div class="brand">EVAN UNBAN WHATSAPP</div>
@@ -433,6 +465,7 @@ clearBtn.addEventListener('click',()=>{
 </script>
 </body>
 </html>
+
 
 
 

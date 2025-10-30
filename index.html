@@ -156,22 +156,22 @@ input[type="text"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 
   .input-row input{width:65%;}
 }
 
-/* Perbaikan ukuran & posisi teks tombol menu sidebar */
+/* Perbaikan posisi teks & ikon lebih kiri */
 .nav-link {
-  padding: 12px 12px !important;
+  padding: 12px 6px !important; /* kiri makin kecil */
   white-space: nowrap;
-  transition: background 0.2s, color 0.2s;
   text-align: left;
   display: flex;
   align-items: center;
-  gap: 8px; /* jarak ikon & teks */
+  gap: 6px; /* jarak ikon & teks lebih dekat */
+  transition: background 0.2s, color 0.2s;
 }
 
 .nav-link.active {
   font-weight: 700 !important;
   background: linear-gradient(90deg, #00d1d1, #06c8a3);
   color: #000 !important;
-  padding-left: 12px !important;
+  padding-left: 6px !important; /* kiri konsisten */
 }
 </style>
 </head>
@@ -485,6 +485,7 @@ clearBtn.addEventListener('click',()=>{
 </script>
 </body>
 </html>
+
 
 
 
